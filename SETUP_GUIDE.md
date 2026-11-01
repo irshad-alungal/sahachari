@@ -1,4 +1,4 @@
-# Sahachari Equipment Library – Complete Setup Guide (from zero)
+# Sahachari Equipment Library (SKSSF Alungal Unit) – Complete Setup Guide (from zero)
 
 Everything here is free. You need: a computer with internet, an email address, and about 60–90 minutes.
 
@@ -7,9 +7,9 @@ Everything here is free. You need: a computer with internet, an email address, a
 |---|---|
 | `index.html` | The whole website: public QR page, login, admin dashboard |
 | `schema.sql` | Creates the database and all security rules (run once) |
-| `migrate_v2.sql`, `migrate_photos.sql` | Only for databases created from an older version |
+| `migrate_v2.sql`, `migrate_photos.sql`, `add_contacts.sql` | Only for databases created from an older version (`add_contacts.sql` adds the 3 public contacts) |
 | `manifest.webmanifest`, `sw.js` | Let phones "install" the app |
-| `assets/` | Logos, `hero.png` (optional) and `equipment/` photos |
+| `assets/` | `banner.jpg` (hero), `og-image.jpg` (link preview), `committee.jpg`, `favicon/` icons, logos, and `equipment/` photos |
 
 ---
 ## PART A – Create the database (Supabase)
@@ -46,8 +46,11 @@ Everything here is free. You need: a computer with internet, an email address, a
 4. In Supabase **Authentication → URL Configuration** set *Site URL* to that address (needed for password-reset emails).
 5. Open the address on your phone and login to confirm everything works.
 
+### C6. Set your real website address in the meta tags (important)
+Open `index.html` and find/replace **`https://irshad-alungal.github.io/sahachari/`** with your real address (it appears in the canonical link, `og:url`, `og:image`, `twitter:image` and the JSON-LD block). Link previews (WhatsApp, Facebook, X) need the full address. Test with the Facebook Sharing Debugger or by pasting the link in WhatsApp; previews can take a while to refresh after a change.
+
 ## PART D – First-time setup inside the app
-1. **Settings → Public information**: initiative name (`Sahachari`), introduction, how to enquire → Save.
+1. **Settings → Public information**: initiative name (`Sahachari – SKSSF Alungal Unit`), introduction, how to enquire → Save.
 2. **Office & hours**: address and opening hours → Save.
 3. **Committee contacts**: add each person (phone, WhatsApp with country code e.g. `919876543210`). Delete the sample contact.
 4. **Staff accounts**: for each volunteer create the login in Supabase (A2), then paste their UID here with role `staff`. Admins can delete loans and open Settings; staff cannot.
@@ -99,3 +102,9 @@ Open the site in Chrome (Android) → ⋮ → *Add to Home screen / Install app*
 | "relation already exists" | Use the new re-runnable `schema.sql`. |
 | Site shows old version | Hard refresh (Ctrl+Shift+R) or reopen the installed app. |
 | Delete loan button missing | Only admins see it. |
+
+## Changing the committee, banner and OG image
+- **Committee names** are in `index.html` in the `COMM` list (search for `const COMM`). Edit the names, then replace `assets/committee.jpg` with the new poster. The heading year (2026–29) is in the `pub()` function.
+- **Banner**: replace `assets/banner.jpg` (about 1200px wide). **Link preview**: replace `assets/og-image.jpg` (1200×675).
+- **Zoom**: on the public page click/tap any equipment photo, the banner or the committee poster. Use + / − / 1×, mouse wheel, or Esc to close.
+- **Public contacts** come from the database (Settings → Committee contacts). For an existing database run `add_contacts.sql` once. The roles assumed: Suhail – President, Faris – Vice President, Irshad – Member; correct them in Settings if needed.

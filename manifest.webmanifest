@@ -1,22 +1,21 @@
 {
- "name": "Sahachari Equipment Library",
+ "name": "Sahachari \u2013 SKSSF Alungal Unit",
  "short_name": "Sahachari",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
  "background_color": "#eef4fc",
- "theme_color": "#0a3a7d",
+ "theme_color": "#2862a8",
  "icons": [
   {
-   "src": "assets/icon-192.png",
+   "src": "assets/favicon/favicon-192.png",
    "sizes": "192x192",
    "type": "image/png"
   },
   {
-   "src": "assets/icon-512.png",
+   "src": "assets/favicon/favicon-512.png",
    "sizes": "512x512",
-   "type": "image/png",
-   "purpose": "any"
+   "type": "image/png"
   }
  ]
 }

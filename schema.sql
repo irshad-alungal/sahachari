@@ -135,18 +135,21 @@ grant execute on function is_staff(), is_admin(), issue_item(uuid,uuid,date,text
   delete_loan(uuid,text), reopen_loan(uuid), update_loan(uuid,date,text) to authenticated;
 
 -- ========== REQUIRED: default public-page text (only inserted if missing) ==========
-insert into settings(id,initiative_name,intro,address,hours,enquiry_text) values(1,'Community Care Equipment Library',
- 'All equipment is lent free of charge. Borrow for as long as you need it and return it when finished.','','','Call or message a contact below.')
+insert into settings(id,initiative_name,intro,address,hours,enquiry_text) values(1,'Sahachari – SKSSF Alungal Unit',
+ 'Sahachari is a community initiative of SKSSF Alungal Unit to lend surgical and mobility equipment free of charge to people in the local area.','SKSSF Alungal Unit, Sahachari Center, Alungal Thottiyil, Malappuram','','Call or message a contact below.')
 on conflict (id) do nothing;
 
 -- ========== REQUIRED: make your login the first administrator ==========
 insert into profiles(id,full_name,role,active) values('2d3df09f-0f14-49ce-ad87-a505bd24dcbc','Administrator','admin',true)
 on conflict (id) do update set role='admin', active=true;
 
+-- ========== Public contacts for Sahachari (edit later in Settings > Committee contacts) ==========
+insert into contacts(name,role,phone,whatsapp,sort)
+select v.* from (values ('Suhail T.C','President','+919645051827','919645051827',1),('Abdul Faris C.K','Vice President','+918086168051','918086168051',2),('Muhammad Irshad K','Member','+917356264323','917356264323',3)) as v(name,role,phone,whatsapp,sort)
+where not exists (select 1 from contacts c where c.phone=v.phone);
+
 -- ========== OPTIONAL: sample test data. Run ONCE, delete this section afterwards ==========
 insert into items(code,name,category,brand,condition) values
  ('W001','Folding wheelchair','Wheelchairs','Generic','good'),('W002','Folding wheelchair','Wheelchairs','Generic','fair'),
  ('WK001','Walking frame','Walkers',null,'good'),('A001','Anti-bedsore air mattress','Air beds',null,'new'),('C001','Commode chair','Commode chairs',null,'good')
 on conflict (code) do nothing;
-insert into contacts(name,role,phone,whatsapp,sort) select 'Sample Coordinator','Coordinator','+910000000000','910000000000',1
- where not exists(select 1 from contacts);

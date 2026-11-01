@@ -1,5 +1,7 @@
 Images used by the website (hosted with it on GitHub Pages)
-  hero.png            Big illustration on the public page (optional, ~1000px wide). If missing, a simple drawing is shown.
-  sahachari.png       Sahachari logo (the app already has a copy built in)
-  skssf-white.png     SKSSF logo, white
+  banner.jpg          Hero picture on the public page (~1200px wide)
+  og-image.jpg        Link-preview image for WhatsApp/Facebook/X (1200x675)
+  committee.jpg       Unit committee poster
+  favicon/            Browser tab / home-screen icons
+  sahachari.png, skssf-white.png   Logos (a copy is also built into index.html)
   equipment/          Equipment photos (see equipment/README.txt)
